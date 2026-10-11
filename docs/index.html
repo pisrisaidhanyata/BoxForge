@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BoxForge | Minimal Container Runtime</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1120;
+      color: #e5e7eb;
+      line-height: 1.7;
+    }
+    header {
+      padding: 70px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #172554, #111827);
+    }
+    header h1 {
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      margin: 0;
+      color: #60a5fa;
+    }
+    header p { font-size: 1.2rem; }
+    .button {
+      display: inline-block;
+      margin: 10px 5px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+    }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 25px 20px 60px;
+    }
+    section {
+      margin: 25px 0;
+      padding: 24px;
+      background: #151f32;
+      border: 1px solid #29364b;
+      border-radius: 12px;
+    }
+    h2 { color: #93c5fd; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      padding: 16px;
+      background: #0f172a;
+      border-radius: 8px;
+    }
+    code {
+      color: #86efac;
+      overflow-wrap: anywhere;
+    }
+    footer {
+      padding: 25px;
+      text-align: center;
+      color: #9ca3af;
+      border-top: 1px solid #29364b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BoxForge</h1>
+    <p>A Minimal Container Runtime</p>
+    <p>A C-based educational project exploring Linux container concepts.</p>
+    <a class="button"
+       href="https://github.com/pisrisaidhanyata/BoxForge">
+       View on GitHub
+    </a>
+  </header>
+
+  <main>
+    <section>
+      <h2>About the Project</h2>
+      <p>
+        BoxForge is a minimal container runtime developed in C on Linux.
+        It demonstrates how operating-system features can create an
+        isolated environment for running a process.
+      </p>
+      <p>
+        The project is designed for learning and demonstrating container
+        fundamentals. It is not intended to replace production tools such
+        as Docker.
+      </p>
+    </section>
+
+    <section>
+      <h2>Project Objectives</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Process Isolation</h3>
+          <p>Explore Linux PID namespaces and isolated process views.</p>
+        </div>
+        <div class="card">
+          <h3>Filesystem</h3>
+          <p>Run commands using a minimal root filesystem.</p>
+        </div>
+        <div class="card">
+          <h3>Resource Control</h3>
+          <p>Explore cgroups v2 CPU and memory limits.</p>
+        </div>
+        <div class="card">
+          <h3>Linux Concepts</h3>
+          <p>Understand how operating-system mechanisms support containers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Technologies Used</h2>
+      <ul>
+        <li>C programming language</li>
+        <li>Ubuntu / Linux and WSL</li>
+        <li>Linux namespaces and root filesystem isolation</li>
+        <li>BusyBox utilities</li>
+        <li>cgroups v2 for resource control</li>
+        <li>Git and GitHub</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>How to Run</h2>
+      <p>Clone the repository in a suitable Linux environment:</p>
+      <p><code>git clone https://github.com/pisrisaidhanyata/BoxForge.git</code></p>
+      <p><code>cd BoxForge</code></p>
+      <p>Build the project:</p>
+      <p><code>make</code></p>
+      <p>Run the container with the required privileges and configuration:</p>
+      <p><code>sudo ./boxforge /bin/bash</code></p>
+      <p>
+        Follow the repository README for environment requirements and
+        troubleshooting. Required cgroup delegation and Linux features
+        must be available for resource limits to work.
+      </p>
+    </section>
+
+    <section>
+      <h2>Team</h2>
+      <ul>
+        <li>P I SRI SAI DHANYATA</li>
+        <li>K TIMPLE AKSHAYA</li>
+        <li>K JANANI REDDY</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source Code</h2>
+      <p>
+        Explore the source code, project documentation, and test files
+        in the GitHub repository.
+      </p>
+      <a class="button"
+         href="https://github.com/pisrisaidhanyata/BoxForge">
+         Open BoxForge Repository
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    BoxForge — Operating Systems & System Programming Project
+  </footer>
+</body>
+</html>
