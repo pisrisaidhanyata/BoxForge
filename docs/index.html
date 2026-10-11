@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BoxForge - A Minimal Container Runtime developed in C to demonstrate Linux container concepts.">
-    <title>BoxForge | A Minimal Container Runtime</title>
+    <meta name="description" content="BoxForge - A Minimal Container Runtime built in C to demonstrate Linux container concepts.">
+    <title>BoxForge | Minimal Container Runtime</title>
 
     <style>
         * {
@@ -21,51 +21,81 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #0b1020;
-            color: #f1f5f9;
-            line-height: 1.8;
+            color: #e5e7eb;
+            line-height: 1.7;
         }
 
-        header {
-            min-height: 480px;
-            padding: 80px 20px;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            padding: 18px 8%;
+            background: #10182b;
+            border-bottom: 1px solid #273449;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            color: #60a5fa;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        .hero {
             text-align: center;
+            padding: 90px 20px 100px;
             background: linear-gradient(135deg, #172554, #111827);
         }
 
-        header h1 {
-            font-size: clamp(42px, 7vw, 68px);
+        .hero h1 {
             color: #60a5fa;
+            font-size: clamp(42px, 7vw, 68px);
             margin-bottom: 12px;
         }
 
-        header h2 {
-            font-size: clamp(20px, 3vw, 27px);
+        .hero h2 {
+            font-size: 25px;
             font-weight: normal;
             margin-bottom: 18px;
         }
 
-        header p {
-            max-width: 750px;
+        .hero p {
+            color: #cbd5e1;
             font-size: 18px;
-            color: #dbeafe;
-            margin-bottom: 28px;
-        }
-
-        a {
-            color: #93c5fd;
+            max-width: 720px;
+            margin: 0 auto 28px;
         }
 
         .button {
             display: inline-block;
-            padding: 12px 22px;
-            border-radius: 9px;
+            border: none;
             background: #2563eb;
             color: white;
-            text-decoration: none;
+            padding: 12px 23px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
             transition: background 0.2s;
         }
 
@@ -73,184 +103,254 @@
             background: #1d4ed8;
         }
 
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 18px;
-            padding: 15px;
-            background: #111827;
-            border-bottom: 1px solid #263449;
+        .button.secondary {
+            background: #263449;
+            border: 1px solid #475569;
         }
 
-        nav a {
-            text-decoration: none;
-            font-size: 14px;
+        .button.secondary:hover {
+            background: #334155;
         }
 
-        nav a:hover {
-            color: white;
+        .container {
+            max-width: 1120px;
+            width: 90%;
+            margin: 0 auto;
         }
 
-        main {
-            max-width: 1100px;
-            margin: auto;
-            padding: 35px 20px;
-        }
-
-        section {
+        .section {
+            padding: 38px;
+            margin: 34px auto;
             background: #162136;
             border: 1px solid #29384e;
             border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 28px;
-            scroll-margin-top: 20px;
         }
 
-        section h2 {
-            color: #60a5fa;
+        .section h2 {
+            color: #7db7ff;
             font-size: 27px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
-        section h3 {
-            color: #bfdbfe;
-            margin: 18px 0 8px;
+        .section h3 {
+            color: #f1f5f9;
+            margin-bottom: 10px;
         }
 
-        section p {
-            margin-bottom: 15px;
+        .section p {
+            color: #d1d5db;
+            margin-bottom: 16px;
         }
 
-        ul, ol {
-            padding-left: 25px;
-        }
-
-        li {
-            margin-bottom: 6px;
-        }
-
-        .cards {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
-            margin-top: 18px;
         }
 
         .card {
-            padding: 20px;
-            border-radius: 10px;
             background: #0f172a;
-            border: 1px solid #263449;
-        }
-
-        .card h3 {
-            color: #f8fafc;
-            margin: 0 0 12px;
+            border: 1px solid #202e44;
+            padding: 22px;
+            border-radius: 10px;
         }
 
         .card p {
+            margin-top: 12px;
             margin-bottom: 0;
+            font-size: 15px;
         }
 
-        .command {
+        .tech-list {
+            padding-left: 24px;
+        }
+
+        .tech-list li {
+            margin: 5px 0;
+        }
+
+        .code {
             background: #080d18;
-            border: 1px solid #303b50;
-            border-radius: 10px;
-            padding: 18px;
-            margin: 15px 0;
-            overflow-x: auto;
-        }
-
-        .command h3 {
             color: #86efac;
-            margin: 0 0 10px;
+            border: 1px solid #29384e;
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin: 12px 0 22px;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
         }
 
-        pre {
-            color: #e2e8f0;
-            font-family: Consolas, "Courier New", monospace;
+        /* Container demonstration */
+
+        .demo-intro {
+            max-width: 800px;
+        }
+
+        .demo-status {
+            display: inline-block;
+            background: #25364d;
+            color: #93c5fd;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .demo-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .demo-options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .demo-option {
+            text-align: left;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 9px;
+            color: #e5e7eb;
+            padding: 16px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .demo-option:hover,
+        .demo-option.active {
+            border-color: #60a5fa;
+            background: #172554;
+        }
+
+        .demo-option strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .demo-option span {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .terminal {
+            min-height: 330px;
+            background: #070b12;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #172033;
+            border-bottom: 1px solid #334155;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #cbd5e1;
             font-size: 14px;
-            line-height: 1.9;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #64748b;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
             white-space: pre-wrap;
             overflow-wrap: anywhere;
         }
 
-        .prompt {
-            color: #86efac;
-        }
-
-        .output {
-            color: #e2e8f0;
-        }
-
-        .note {
-            color: #cbd5e1;
-            font-size: 14px;
-            border-left: 3px solid #60a5fa;
-            padding-left: 12px;
-            margin-top: 15px;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: #123c31;
-            color: #86efac;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .architecture {
-            display: grid;
-            gap: 10px;
-            max-width: 600px;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .architecture div {
-            padding: 12px;
-            border: 1px solid #3b82f6;
-            border-radius: 8px;
-            background: #0f172a;
-        }
-
-        .arrow {
+        .terminal-title {
             color: #60a5fa;
-            font-size: 22px;
-            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .terminal-output {
+            color: #86efac;
+        }
+
+        .terminal-note {
+            color: #94a3b8;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .demo-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
         }
 
         .team-list li {
-            margin-bottom: 10px;
+            margin: 8px 0;
         }
 
         footer {
-            padding: 25px 15px;
             text-align: center;
+            padding: 28px 15px;
+            border-top: 1px solid #273449;
             color: #94a3b8;
-            border-top: 1px solid #29384e;
-            font-size: 14px;
+            margin-top: 45px;
         }
 
-        @media (max-width: 600px) {
-            header {
-                min-height: 400px;
-                padding: 55px 18px;
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            section {
-                padding: 20px;
+            .demo-layout {
+                grid-template-columns: 1fr;
             }
 
-            nav {
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .nav-links {
                 gap: 12px;
             }
 
-            .command {
-                padding: 12px;
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .section {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 65px 18px;
             }
         }
     </style>
@@ -258,277 +358,392 @@
 
 <body>
 
-<header>
-    <h1>BoxForge</h1>
-    <h2>A Minimal Container Runtime</h2>
-    <p>
-        A C-based educational project exploring Linux container concepts,
-        process isolation, filesystem isolation, and resource control.
-    </p>
-    <a class="button"
-       href="https://github.com/pisrisaidhanyata/BoxForge"
-       target="_blank"
-       rel="noopener noreferrer">
-        View on GitHub
-    </a>
-</header>
+    <nav class="navbar">
+        <a class="logo" href="#home">BoxForge</a>
 
-<nav>
-    <a href="#about">About</a>
-    <a href="#objectives">Objectives</a>
-    <a href="#architecture">Architecture</a>
-    <a href="#technologies">Technologies</a>
-    <a href="#run">How to Run</a>
-    <a href="#demo">Container Demo</a>
-    <a href="#team">Team</a>
-</nav>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#objectives">Objectives</a>
+            <a href="#demo">Demo</a>
+            <a href="#run">How to Run</a>
+            <a href="#team">Team</a>
+        </div>
+    </nav>
 
-<main>
-
-    <section id="about">
-        <h2>About the Project</h2>
+    <header class="hero" id="home">
+        <h1>BoxForge</h1>
+        <h2>A Minimal Container Runtime</h2>
         <p>
-            BoxForge is a minimal container runtime developed in C on Linux.
-            It demonstrates how operating-system features can create an
-            isolated environment for running a process.
-        </p>
-        <p>
-            The project uses Linux namespaces, a minimal root filesystem,
-            BusyBox utilities, and cgroups v2 resource controls where the
-            environment supports them.
-        </p>
-        <p>
-            BoxForge is designed for learning and demonstrating container
-            fundamentals. It is not intended to replace production tools
-            such as Docker.
-        </p>
-    </section>
-
-    <section id="objectives">
-        <h2>Project Objectives</h2>
-
-        <div class="cards">
-            <div class="card">
-                <h3>Process Isolation</h3>
-                <p>
-                    Explore Linux PID namespaces and isolated process views.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>Filesystem</h3>
-                <p>
-                    Run commands using a minimal root filesystem.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>Resource Control</h3>
-                <p>
-                    Apply CPU and memory limits using cgroups v2 when supported.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>Linux Concepts</h3>
-                <p>
-                    Understand how operating-system mechanisms support
-                    containerization.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="architecture">
-        <h2>Project Architecture</h2>
-        <p>
-            BoxForge receives a command, prepares an isolated environment,
-            starts the requested program, and cleans up after it exits.
-        </p>
-
-        <div class="architecture">
-            <div>User Command</div>
-            <span class="arrow">↓</span>
-            <div>BoxForge Runtime (C)</div>
-            <span class="arrow">↓</span>
-            <div>Linux Namespaces</div>
-            <span class="arrow">↓</span>
-            <div>Minimal Root Filesystem</div>
-            <span class="arrow">↓</span>
-            <div>CPU and Memory Controls (cgroups v2)</div>
-            <span class="arrow">↓</span>
-            <div>Run Program and Clean Up</div>
-        </div>
-
-        <p class="note">
-            Resource controls depend on the Linux environment and cgroup
-            delegation permissions. BoxForge reports an error if it cannot
-            apply its configured resource limits.
-        </p>
-    </section>
-
-    <section id="technologies">
-        <h2>Technologies Used</h2>
-        <ul>
-            <li>C programming language</li>
-            <li>Ubuntu / Linux and WSL</li>
-            <li>Linux namespaces</li>
-            <li>Minimal root filesystem and BusyBox utilities</li>
-            <li>cgroups v2 for CPU and memory control</li>
-            <li>GCC compiler and Makefile</li>
-            <li>Git and GitHub</li>
-            <li>GitHub Pages for website hosting</li>
-        </ul>
-    </section>
-
-    <section id="run">
-        <h2>How to Run BoxForge</h2>
-
-        <p>
-            BoxForge is a Linux C program. Run it in a suitable Linux
-            environment such as your configured Ubuntu/WSL environment.
-            GitHub Pages hosts this website; it does not run the container.
-        </p>
-
-        <h3>1. Clone the repository</h3>
-        <div class="command">
-            <pre><span class="prompt">$</span> git clone https://github.com/pisrisaidhanyata/BoxForge.git
-<span class="prompt">$</span> cd BoxForge</pre>
-        </div>
-
-        <h3>2. Build the project</h3>
-        <div class="command">
-            <pre><span class="prompt">$</span> make clean
-<span class="prompt">$</span> make</pre>
-        </div>
-
-        <h3>3. Start the container</h3>
-        <div class="command">
-            <pre><span class="prompt">$</span> sudo ./boxforge /bin/bash</pre>
-        </div>
-
-        <p class="note">
-            The root filesystem, BusyBox installation, required Linux
-            features, and cgroup permissions must be configured correctly.
-            Follow the repository README for environment requirements.
-        </p>
-    </section>
-
-    <section id="demo">
-        <h2>Container Demonstration</h2>
-
-        <span class="status">Sample Output from the Ubuntu Prototype</span>
-
-        <p>
-            The following examples illustrate commands used inside the
-            BoxForge container. The output is shown for demonstration;
-            this webpage does not execute the commands.
-        </p>
-
-        <div class="command">
-            <h3>1. Check the process ID</h3>
-            <pre><span class="prompt">bash-5.3#</span> echo $$
-<span class="output">1</span></pre>
-            <p class="note">
-                The shell displays PID 1 inside the PID namespace,
-                as observed in the project demonstration.
-            </p>
-        </div>
-
-        <div class="command">
-            <h3>2. Check the hostname</h3>
-            <pre><span class="prompt">bash-5.3#</span> hostname
-<span class="output">boxforge</span></pre>
-            <p class="note">
-                This demonstrates the container hostname configured
-                by the project.
-            </p>
-        </div>
-
-        <div class="command">
-            <h3>3. Check the current directory</h3>
-            <pre><span class="prompt">bash-5.3#</span> pwd
-<span class="output">/</span></pre>
-            <p class="note">
-                The shell's current working directory is the root
-                directory of the container environment.
-            </p>
-        </div>
-
-        <div class="command">
-            <h3>4. List the root filesystem</h3>
-            <pre><span class="prompt">bash-5.3#</span> ls /
-<span class="output">bin  dev  etc  lib64  proc  sys  tmp  usr</span></pre>
-            <p class="note">
-                These entries show the minimal root filesystem used
-                by the demonstration.
-            </p>
-        </div>
-
-        <div class="command">
-            <h3>5. Inspect processes</h3>
-            <pre><span class="prompt">bash-5.3#</span> ps</pre>
-            <p>
-                This command displays the processes visible inside
-                the container. The exact output depends on the running
-                processes and BusyBox configuration.
-            </p>
-        </div>
-
-        <div class="command">
-            <h3>6. Exit the container</h3>
-            <pre><span class="prompt">bash-5.3#</span> exit
-<span class="output">BoxForge: Container stopped</span></pre>
-            <p class="note">
-                Exiting the shell returns control to the host terminal
-                and allows the runtime to perform its cleanup.
-            </p>
-        </div>
-
-        <div class="command">
-            <h3>7. Check the resource controls</h3>
-            <pre><span class="prompt">$</span> sudo ./boxforge /bin/bash
-<span class="output">BoxForge: Creating isolated environment...
-BoxForge: Container process started
-BoxForge: Memory limit set to 512 MiB
-BoxForge: CPU quota set to 50%
-BoxForge: Starting container</span></pre>
-            <p class="note">
-                This sample reflects the successful output shown by the
-                current prototype. Actual process IDs and messages may vary.
-            </p>
-        </div>
-    </section>
-
-    <section id="team">
-        <h2>Project Team</h2>
-        <ul class="team-list">
-            <li>P I SRI SAI DHANYATA</li>
-            <li>K TIMPLE AKSHAYA</li>
-            <li>K JANANI REDDY</li>
-        </ul>
-    </section>
-
-    <section id="source">
-        <h2>Source Code</h2>
-        <p>
-            Explore the source code, project documentation, Makefile,
-            root filesystem files, and tests in the GitHub repository.
+            A C-based educational project exploring Linux container
+            concepts, process isolation, filesystems, and resource control.
         </p>
         <a class="button"
            href="https://github.com/pisrisaidhanyata/BoxForge"
-           target="_blank"
-           rel="noopener noreferrer">
-            Open BoxForge Repository
+           target="_blank" rel="noopener noreferrer">
+            View on GitHub
         </a>
-    </section>
+    </header>
 
-</main>
+    <main class="container">
 
-<footer>
-    <p>BoxForge — Operating Systems &amp; System Programming Project</p>
-    <p>Educational demonstration of Linux container concepts</p>
-</footer>
+        <section class="section" id="about">
+            <h2>About the Project</h2>
+            <p>
+                BoxForge is a minimal container runtime developed in C on
+                Linux. It demonstrates how operating-system features can
+                create an isolated environment for running a process.
+            </p>
+            <p>
+                The project is designed for learning and demonstrating
+                container fundamentals. It is not intended to replace
+                production tools such as Docker.
+            </p>
+        </section>
+
+        <section class="section" id="objectives">
+            <h2>Project Objectives</h2>
+
+            <div class="grid">
+                <article class="card">
+                    <h3>Process Isolation</h3>
+                    <p>
+                        Explore Linux PID namespaces and isolated
+                        process views.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Filesystem</h3>
+                    <p>
+                        Run commands using a minimal root filesystem
+                        and BusyBox utilities.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Resource Control</h3>
+                    <p>
+                        Demonstrate CPU and memory limits using
+                        cgroups v2 where supported.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Linux Concepts</h3>
+                    <p>
+                        Understand how operating-system mechanisms
+                        support containers.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Container Demonstration -->
+        <section class="section" id="demo">
+            <h2>Container Demonstration</h2>
+
+            <p class="demo-intro">
+                Explore the main features of BoxForge. Select a feature
+                to see example output and understand how container
+                isolation works.
+            </p>
+
+            <span class="demo-status">
+                Interactive educational demo
+            </span>
+
+            <div class="demo-layout">
+                <div class="demo-options">
+
+                    <button class="demo-option active"
+                            data-demo="overview">
+                        <strong>01. Start Container</strong>
+                        <span>View the example startup sequence</span>
+                    </button>
+
+                    <button class="demo-option"
+                            data-demo="pid">
+                        <strong>02. Process Isolation</strong>
+                        <span>Understand the container PID</span>
+                    </button>
+
+                    <button class="demo-option"
+                            data-demo="hostname">
+                        <strong>03. Hostname Isolation</strong>
+                        <span>View the container hostname</span>
+                    </button>
+
+                    <button class="demo-option"
+                            data-demo="filesystem">
+                        <strong>04. Root Filesystem</strong>
+                        <span>Explore the minimal filesystem</span>
+                    </button>
+
+                    <button class="demo-option"
+                            data-demo="resources">
+                        <strong>05. Resource Control</strong>
+                        <span>Understand CPU and memory limits</span>
+                    </button>
+
+                </div>
+
+                <div>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span style="margin-left: 8px;">
+                                BoxForge Terminal
+                            </span>
+                        </div>
+
+                        <div class="terminal-body">
+                            <div class="terminal-title" id="demo-title">
+                                BoxForge Startup
+                            </div>
+
+                            <div class="terminal-output"
+                                 id="demo-output">Welcome to BoxForge!
+
+Creating isolated environment...
+Container process started.
+Starting container...
+
+Container demonstration ready.</div>
+
+                            <p class="terminal-note" id="demo-note">
+                                This is illustrative sample output.
+                                The website does not execute the C runtime.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="demo-actions">
+                        <button class="button" id="next-demo">
+                            Next Feature →
+                        </button>
+
+                        <button class="button secondary" id="reset-demo">
+                            Reset Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="technologies">
+            <h2>Technologies Used</h2>
+            <ul class="tech-list">
+                <li>C programming language</li>
+                <li>Ubuntu / Linux and WSL</li>
+                <li>Linux namespaces and root filesystem isolation</li>
+                <li>BusyBox utilities</li>
+                <li>cgroups v2 for resource control, where supported</li>
+                <li>Git and GitHub</li>
+                <li>HTML, CSS, and JavaScript for the project website</li>
+            </ul>
+        </section>
+
+        <section class="section" id="run">
+            <h2>How to Run</h2>
+
+            <p>
+                Clone the repository in a suitable Linux environment:
+            </p>
+
+            <div class="code">git clone https://github.com/pisrisaidhanyata/BoxForge.git</div>
+
+            <p>Open the project directory:</p>
+
+            <div class="code">cd BoxForge</div>
+
+            <p>Build the project:</p>
+
+            <div class="code">make</div>
+
+            <p>
+                Run the container with the required privileges and
+                configuration:
+            </p>
+
+            <div class="code">sudo ./boxforge /bin/bash</div>
+
+            <p>
+                Follow the repository README for environment requirements
+                and troubleshooting. Resource limits require suitable
+                cgroup delegation and Linux support.
+            </p>
+
+            <a class="button"
+               href="https://github.com/pisrisaidhanyata/BoxForge"
+               target="_blank" rel="noopener noreferrer">
+                View Source Code
+            </a>
+        </section>
+
+        <section class="section" id="team">
+            <h2>Project Team</h2>
+
+            <ul class="team-list">
+                <li>P I SRI SAI DHANYATA</li>
+                <li>K TIMPLE AKSHAYA</li>
+                <li>K JANANI REDDY</li>
+            </ul>
+        </section>
+
+        <section class="section" id="source">
+            <h2>Source Code</h2>
+            <p>
+                Explore the source code, project documentation, build
+                files, and tests in the GitHub repository.
+            </p>
+
+            <a class="button"
+               href="https://github.com/pisrisaidhanyata/BoxForge"
+               target="_blank" rel="noopener noreferrer">
+                Open BoxForge Repository
+            </a>
+        </section>
+
+    </main>
+
+    <footer>
+        BoxForge — Operating Systems &amp; System Programming Project
+    </footer>
+
+    <script>
+        const demonstrations = {
+            overview: {
+                title: "BoxForge Startup",
+                output:
+`Welcome to BoxForge!
+
+Creating isolated environment...
+Container process started.
+Starting container...
+
+Container demonstration ready.`,
+                note:
+                    "Example startup output for educational purposes."
+            },
+
+            pid: {
+                title: "Process Isolation",
+                output:
+`Container PID namespace
+
+$ echo $$
+1
+
+Explanation:
+The first process inside this
+container has PID 1.`,
+                note:
+                    "Example output based on your tested container. PID 1 is not the host PID."
+            },
+
+            hostname: {
+                title: "Hostname Isolation",
+                output:
+`Container hostname
+
+$ hostname
+boxforge
+
+Explanation:
+The container uses its own
+configured hostname.`,
+                note:
+                    "Example output based on your BoxForge test."
+            },
+
+            filesystem: {
+                title: "Minimal Root Filesystem",
+                output:
+`Container root directory
+
+$ pwd
+/
+
+$ ls /
+bin  dev  etc  lib64
+proc  sys  tmp  usr
+
+Explanation:
+The process sees the
+configured container root.`,
+                note:
+                    "Example filesystem listing; actual entries depend on your rootfs."
+            },
+
+            resources: {
+                title: "Resource Control",
+                output:
+`BoxForge cgroup configuration
+
+Memory limit: 512 MiB
+CPU quota: 50%
+
+Purpose:
+Limit the resources available
+to the container process.`,
+                note:
+                    "These are the configured example limits. Actual enforcement depends on successful cgroup setup."
+            }
+        };
+
+        const options = document.querySelectorAll(".demo-option");
+        const title = document.getElementById("demo-title");
+        const output = document.getElementById("demo-output");
+        const note = document.getElementById("demo-note");
+        const nextButton = document.getElementById("next-demo");
+        const resetButton = document.getElementById("reset-demo");
+
+        const demoNames = [
+            "overview",
+            "pid",
+            "hostname",
+            "filesystem",
+            "resources"
+        ];
+
+        let currentIndex = 0;
+
+        function showDemo(name) {
+            const demo = demonstrations[name];
+
+            title.textContent = demo.title;
+            output.textContent = demo.output;
+            note.textContent = demo.note;
+
+            currentIndex = demoNames.indexOf(name);
+
+            options.forEach(function (button) {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.demo === name
+                );
+            });
+        }
+
+        options.forEach(function (button) {
+            button.addEventListener("click", function () {
+                showDemo(button.dataset.demo);
+            });
+        });
+
+        nextButton.addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % demoNames.length;
+            showDemo(demoNames[currentIndex]);
+        });
+
+        resetButton.addEventListener("click", function () {
+            showDemo("overview");
+        });
+
+        showDemo("overview");
+    </script>
 
 </body>
 </html>
